@@ -6,7 +6,7 @@
 /*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 10:43:20 by bfitte            #+#    #+#             */
-/*   Updated: 2026/02/28 11:47:58 by bfitte           ###   ########lyon.fr   */
+/*   Updated: 2026/02/28 11:53:11 by bfitte           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ uint64_t	fnv(t_stringv str)
 {
 	uint64_t	hash;
 	uint64_t	prime_number;
-	int			i;
+	size_t			i;
 
 	i = 0;
 	hash = 14695981039346656037ULL;
@@ -30,3 +30,4 @@ uint64_t	fnv(t_stringv str)
 	}
 	return hash;
 }
+

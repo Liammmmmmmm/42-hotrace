@@ -6,7 +6,7 @@
 /*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:25:16 by bfitte            #+#    #+#             */
-/*   Updated: 2026/02/28 11:35:44 by bfitte           ###   ########lyon.fr   */
+/*   Updated: 2026/02/28 11:53:15 by bfitte           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,3 +52,19 @@ uint64_t murmur2_64(const uint8_t* key, size_t len, uint64_t seed)
 	h ^= h >> 16;
 	return h;
 }
+
+// #include <stdio.h>
+// int main()
+// {
+// 	t_stringv	truc;
+
+// 	truc.ptr = "COoucou";
+// 	truc.size = 7;
+// 	printf("%lu\n", fnv(truc));
+// 	truc.ptr = "Truc";
+// 	truc.size = 4;
+// 	printf("%lu\n", fnv(truc));
+// 	truc.ptr = "Machin";
+// 	truc.size = 6;
+// 	printf("%lu\n", fnv(truc));
+// }
