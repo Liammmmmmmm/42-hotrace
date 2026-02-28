@@ -6,7 +6,7 @@
 /*   By: ethebaul <ethebaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 00:31:17 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/02/28 15:51:20 by ethebaul         ###   ########.fr       */
+/*   Updated: 2026/02/28 16:12:23 by ethebaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ int	align(t_stream *stream, size_t i, t_phase *phase, size_t *search)
 {
 	while (i % 32 > 0)
 	{
-		printf("a");
-		if (stream_pushc(stream, 'a'))
+		if (stream_pushc(stream, '\0'))
 			return (-1);
 		++i;
 	}
@@ -31,7 +30,6 @@ int	align(t_stream *stream, size_t i, t_phase *phase, size_t *search)
 		*phase = EOL;
 	else if (*phase == EOL)
 		*search = stream_len(stream);
-	printf("\n");
 	return (0);
 }
 
@@ -78,15 +76,16 @@ int	main(void)
 	if (parse_input(&stream, &search, buffer))
 		return (1);
 	i = 0;
-	printf("%zu\n", search);
-	while (i < search)
+	while (stream_getc(&stream, &c))
 	{
-		if (stream_getc(&stream, &c))
-			return (1);
+		if (i > search && search != 0)
+		{
+			printf("SEARCHING\n");
+			search = 0;
+		}
 		write(1, &c, 1);
 		++i;
 	}
-	write(1, "SEARCHING\n", 11);
 	stream_destroy(&stream);
 	free(buffer);
 	return (0);
