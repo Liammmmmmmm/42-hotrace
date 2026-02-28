@@ -6,7 +6,7 @@
 /*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 13:49:13 by bfitte            #+#    #+#             */
-/*   Updated: 2026/02/28 14:06:58 by bfitte           ###   ########lyon.fr   */
+/*   Updated: 2026/02/28 15:07:19 by bfitte           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 uint64_t	djb2(t_stringv *str)
 {
 	uint64_t	hash;
-	size_t			i;
+	size_t		i;
 
 	hash = 5381;
 	i = 0;

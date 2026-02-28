@@ -3,7 +3,7 @@
 
 int main()
 {
-	hashmap_t hashmap;
+	t_hashmap hashmap;
 
 	if (init_hashmap(&hashmap) == -1)
 	{
