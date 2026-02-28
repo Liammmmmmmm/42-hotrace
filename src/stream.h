@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   stream.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethebaul <ethebaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/28 00:31:17 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/02/28 09:39:02 by ethebaul         ###   ########.fr       */
+/*   Created: 2026/02/28 09:33:26 by ethebaul          #+#    #+#             */
+/*   Updated: 2026/02/28 09:38:01 by ethebaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include "stream.h"
+#ifndef STREAM_H
+# define STREAM_H
 
-int	main(void)
+# include <stddef.h>
+
+# define BUFFER_SIZE 64000
+
+typedef struct s_buffer
 {
-	t_stream	stream;
-	char		*buffer;
-	char		c;
+	struct s_buffer	*next;
+	char			*buffer;
+	size_t			inx;
+	size_t			outx;
+}	t_buffer;
 
-	buffer = malloc(64000);
-	if (!buffer)
-		return (1);
-	while (read_stream(&stream, 0))
-	{
-		while (stream_getc(&stream, &c))
-			write(1, &c, 1);
-	}
-	return (0);
-}
+typedef struct s_stream
+{
+	t_buffer	*out;
+	t_buffer	*in;
+}	t_stream;
+
+char	stream_getc(t_stream *stream, char *c);
+int		stream_add_buffer(t_stream *stream);
+long	read_stream(t_stream *stream, int fd);
+
+#endif

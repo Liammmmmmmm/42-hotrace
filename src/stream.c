@@ -6,14 +6,13 @@
 /*   By: ethebaul <ethebaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 08:11:42 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/02/28 09:31:43 by ethebaul         ###   ########.fr       */
+/*   Updated: 2026/02/28 09:39:19 by ethebaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "types.h"
+#include "stream.h"
 
 int	stream_add_buffer(t_stream *stream)
 {
@@ -34,9 +33,8 @@ int	stream_add_buffer(t_stream *stream)
 	return (0);
 }
 
-long	read_stream(t_stream *stream, int fd, char *buffer, size_t len)
+long	read_stream(t_stream *stream, int fd)
 {
-	t_buffer	*tmp;
 	long		size;
 
 	if (!stream->in)
@@ -51,16 +49,16 @@ long	read_stream(t_stream *stream, int fd, char *buffer, size_t len)
 	return (size);
 }
 
-char	stream_getc(t_stream *stream)
+char	stream_getc(t_stream *stream, char *c)
 {
 	t_buffer	*tmp;
-	char		c;
 
 	if (!stream->out)
 		return (0);
 	if (stream->out->outx == BUFFER_SIZE - stream->out->inx)
 		return (0);
-	c = stream->out->buffer[stream->out->outx];
+	if (c)
+		*c = stream->out->buffer[stream->out->outx];
 	stream->out->outx += 1;
 	if (stream->out->outx == BUFFER_SIZE)
 	{
@@ -72,5 +70,5 @@ char	stream_getc(t_stream *stream)
 		free(tmp->buffer);
 		free(tmp);
 	}
-	return (c);
+	return (1);
 }
