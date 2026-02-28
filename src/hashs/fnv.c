@@ -6,12 +6,12 @@
 /*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 10:43:20 by bfitte            #+#    #+#             */
-/*   Updated: 2026/02/28 15:06:48 by bfitte           ###   ########lyon.fr   */
+/*   Updated: 2026/02/28 17:03:06 by bfitte           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
-#include "../types.h"
+#include "../utils.h"
 
 uint64_t	fnv(t_stringv str)
 {

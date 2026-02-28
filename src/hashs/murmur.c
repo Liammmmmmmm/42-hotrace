@@ -6,12 +6,12 @@
 /*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:25:16 by bfitte            #+#    #+#             */
-/*   Updated: 2026/02/28 16:12:11 by bfitte           ###   ########lyon.fr   */
+/*   Updated: 2026/02/28 17:02:58 by bfitte           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
-#include "../types.h"
+#include "../utils.h"
 
 uint64_t	last_bytes(uint64_t h, const unsigned char *data, size_t len,
 	const uint64_t m)
