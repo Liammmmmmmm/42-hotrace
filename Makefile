@@ -1,44 +1,34 @@
-NAME := hotrace
+INCLUDE		=	$(addprefix -I,$(shell find src -name "*.h" -exec dirname {} + | sort -u))
 
-INCLUDE := includes/
+SRC			=	$(shell find src -name "*.c")
 
-BUILD_DIR := .build
+BUILD_DIR	=	.build
+OBJS		=	$(addprefix $(BUILD_DIR)/,$(SRC:.c=.o))
+DEPS		=	$(OBJS:.o=.d)
 
-RM := rm -f
+CC			=	cc
 
-CC := cc
+FLAGS		=	-Wall -Wextra -Werror
 
-FLAGS := -Wall -Werror -Wextra
-
-FINCLUDE := -I $(INCLUDE)
-
-DEPFLAGS := -MMD -MP
-
-SRC_FILES := main.c\
-
-OBJ := $(patsubst %.c, $(BUILD_DIR)/%.o, $(SRC_FILES))
-DEPS := $(patsubst %.o, %.d, $(OBJ))
+NAME		=	a.out
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(FLAGS) $(FINCLUDE) $(OBJ) -o $@
+$(NAME): $(OBJS)
+	$(CC) $(FLAGS) $(INCLUDE) -o $@ $(OBJS)
 
-$(BUILD_DIR)/%.o: %.c | $(BUILD_DIR)
-	$(CC) $(FLAGS) $(FINCLUDE) $(DEPFLAGS) -c $< -o $@
-
-$(BUILD_DIR):
-	mkdir -p $@
+$(BUILD_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
+	$(CC) $(FLAGS) $(INCLUDE) -MD -MP -c $< -o $@
 
 clean:
-	$(RM) $(OBJ) $(DEPS)
-	rm -rf $(BUILD_DIR)
+	@rm -rf $(BUILD_DIR)
 
 fclean: clean
-	$(RM) $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all clean fclean re
-
 -include $(DEPS)
+
+.PHONY : all clean fclean re
