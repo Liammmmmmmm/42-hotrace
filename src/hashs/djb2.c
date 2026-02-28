@@ -6,12 +6,12 @@
 /*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 13:49:13 by bfitte            #+#    #+#             */
-/*   Updated: 2026/02/28 15:07:19 by bfitte           ###   ########lyon.fr   */
+/*   Updated: 2026/02/28 17:03:09 by bfitte           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
-#include "../types.h"
+#include "../utils.h"
 
 uint64_t	djb2(t_stringv *str)
 {
