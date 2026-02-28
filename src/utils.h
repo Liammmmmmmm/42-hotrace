@@ -6,13 +6,14 @@
 /*   By: ethebaul <ethebaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 00:31:12 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/02/28 15:00:11 by ethebaul         ###   ########.fr       */
+/*   Updated: 2026/02/28 17:12:33 by ethebaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
+# include "stream.h"
 # include <stddef.h>
 
 typedef unsigned char	t_8b;
@@ -35,5 +36,10 @@ typedef enum e_phase
 
 int	smalloc(size_t size, void **ret);
 int	sread(int fd, char *buf, size_t len, long *ret);
+
+int	align(t_stream *stream, size_t i, t_phase *phase, size_t *search);
+int	parse_input(t_stream *stream, size_t *search);
+int	parse_buffer(t_stream *stream, size_t *srch, t_stringv buf, t_phase *phase);
+
 
 #endif
