@@ -6,7 +6,7 @@
 /*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:25:16 by bfitte            #+#    #+#             */
-/*   Updated: 2026/02/28 13:35:29 by bfitte           ###   ########lyon.fr   */
+/*   Updated: 2026/02/28 13:42:01 by bfitte           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 uint64_t	last_bytes(uint64_t h, const unsigned char *data, size_t len,
 	const uint64_t m)
 {
-	const int	r;
+	int	r;
 
 	r = 47;
 	if ((len & 7) == 7)
