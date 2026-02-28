@@ -6,7 +6,7 @@
 /*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:25:16 by bfitte            #+#    #+#             */
-/*   Updated: 2026/02/28 15:06:59 by bfitte           ###   ########lyon.fr   */
+/*   Updated: 2026/02/28 16:12:11 by bfitte           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ uint64_t	murmurhash64(t_stringv *str, uint64_t seed)
 
 	h = seed ^ (str->size * m);
 	data = (const uint64_t *)str->ptr;
-	end = data + (str->size / 32);
+	end = data + (str->size / 8);
 	while (data != end)
 	{
 		k = *data++;
