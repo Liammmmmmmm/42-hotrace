@@ -6,65 +6,61 @@
 /*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 11:25:16 by bfitte            #+#    #+#             */
-/*   Updated: 2026/02/28 11:53:15 by bfitte           ###   ########lyon.fr   */
+/*   Updated: 2026/02/28 13:35:29 by bfitte           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
-#include <stddef.h>
+#include "../types.h"
 
-static inline uint64_t murmur_32_scramble(uint64_t k) {
-    k *= 0xcc9e2d51;
-    k = (k << 15) | (k >> 17);
-    k *= 0x1b873593;
-    return k;
-}
-uint64_t murmur2_64(const uint8_t* key, size_t len, uint64_t seed)
+uint64_t	last_bytes(uint64_t h, const unsigned char *data, size_t len,
+	const uint64_t m)
 {
-	uint64_t h = seed;
-    uint64_t k;
-    /* Read in groups of 4. */
-    for (size_t i = len >> 2; i; i--) {
-        // Here is a source of differing results across endiannesses.
-        // A swap here has no effects on hash properties though.
-        memcpy(&k, key, sizeof(uint64_t));
-        key += sizeof(uint64_t);
-        h ^= murmur_32_scramble(k);
-        h = (h << 13) | (h >> 19);
-        h = h * 5 + 0xe6546b64;
-    }
-    /* Read the rest. */
-    k = 0;
-    for (size_t i = len & 3; i; i--) {
-        k <<= 8;
-        k |= key[i - 1];
-    }
-    // A swap is *not* necessary here because the preceding loop already
-    // places the low bytes in the low places according to whatever endianness
-    // we use. Swaps only apply when the memory is copied in a chunk.
-    h ^= murmur_32_scramble(k);
-    /* Finalize. */
-	h ^= len;
-	h ^= h >> 16;
-	h *= 0x85ebca6b;
-	h ^= h >> 13;
-	h *= 0xc2b2ae35;
-	h ^= h >> 16;
-	return h;
+	const int	r;
+
+	r = 47;
+	if ((len & 7) == 7)
+		h ^= ((uint64_t)data[6]) << 48;
+	if ((len & 7) >= 6)
+		h ^= ((uint64_t)data[5]) << 40;
+	if ((len & 7) >= 5)
+		h ^= ((uint64_t)data[4]) << 32;
+	if ((len & 7) >= 4)
+		h ^= ((uint64_t)data[3]) << 24;
+	if ((len & 7) >= 3)
+		h ^= ((uint64_t)data[2]) << 16;
+	if ((len & 7) >= 2)
+		h ^= ((uint64_t)data[1]) << 8;
+	if ((len & 7) >= 1)
+	{
+		h ^= ((uint64_t)data[0]);
+		h *= m;
+	}
+	h ^= h >> r;
+	h *= m;
+	h ^= h >> r;
+	return (h);
 }
 
-// #include <stdio.h>
-// int main()
-// {
-// 	t_stringv	truc;
+uint64_t murmurhash64(t_stringv *str, uint64_t seed)
+{
+	const uint64_t	m = 0xc6a4a7935bd1e995ULL;
+	uint64_t		h;
+	const uint64_t	*data;
+	const uint64_t	*end;
+	uint64_t		k;
 
-// 	truc.ptr = "COoucou";
-// 	truc.size = 7;
-// 	printf("%lu\n", fnv(truc));
-// 	truc.ptr = "Truc";
-// 	truc.size = 4;
-// 	printf("%lu\n", fnv(truc));
-// 	truc.ptr = "Machin";
-// 	truc.size = 6;
-// 	printf("%lu\n", fnv(truc));
-// }
+	h = seed ^ (str->size * m);
+	data = (const uint64_t *)str->ptr;
+	end = data + (str->size / 8);
+	while (data != end)
+	{
+		k = *data++;
+		k *= m;
+		k ^= k >> 47;
+		k *= m;
+		h ^= k;
+		h *= m;
+	}
+	return (last_bytes(h, (const unsigned char *)data, str->size, m));
+}
