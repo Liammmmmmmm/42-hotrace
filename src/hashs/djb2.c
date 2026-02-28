@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fnv.c                                              :+:      :+:    :+:   */
+/*   djb2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/28 10:43:20 by bfitte            #+#    #+#             */
-/*   Updated: 2026/02/28 13:44:13 by bfitte           ###   ########lyon.fr   */
+/*   Created: 2026/02/28 13:49:13 by bfitte            #+#    #+#             */
+/*   Updated: 2026/02/28 14:06:58 by bfitte           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
 #include "../types.h"
 
-uint64_t	fnv(t_stringv str)
+uint64_t	djb2(t_stringv *str)
 {
 	uint64_t	hash;
-	uint64_t	prime_number;
 	size_t			i;
 
+	hash = 5381;
 	i = 0;
-	hash = 14695981039346656037ULL;
-	prime_number = 1099511628211ULL;
-	while (i < str.size)
-	{
-		hash ^= str.ptr[i];
-		hash *= prime_number;
-		i++;
-	}
-	return hash;
+	while (i < str->size)
+		hash = ((hash << 5) + hash) + (unsigned char)str->ptr[i++];
+	return (hash);
 }
-
