@@ -6,13 +6,34 @@
 /*   By: ethebaul <ethebaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 08:11:42 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/02/28 09:39:19 by ethebaul         ###   ########.fr       */
+/*   Updated: 2026/02/28 10:03:14 by ethebaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <unistd.h>
 #include "stream.h"
+
+void	stream_init(t_stream *stream)
+{
+	stream->in = NULL;
+	stream->out = NULL;
+}
+
+void	stream_destroy(t_stream *stream)
+{
+	t_buffer	*tmp;
+
+	while (stream->out)
+	{
+		tmp = stream->out;
+		stream->out = stream->out->next;
+		free(tmp->buffer);
+		free(tmp);
+	}
+	stream->out = NULL;
+	stream->in = NULL;
+}
 
 int	stream_add_buffer(t_stream *stream)
 {
@@ -30,17 +51,19 @@ int	stream_add_buffer(t_stream *stream)
 	if (stream->in)
 		stream->in->next = tmp;
 	stream->in = tmp;
+	if (!stream->out)
+		stream->out = tmp;
 	return (0);
 }
 
-long	read_stream(t_stream *stream, int fd)
+long	stream_read(t_stream *stream, int fd)
 {
-	long		size;
+	long	size;
 
 	if (!stream->in)
 		if (stream_add_buffer(stream))
 			return (-1);
-	size = read(fd, stream->in->buffer, stream->in->inx);
+	size = read(fd, &stream->in->buffer[stream->in->outx], stream->in->inx);
 	if (size > 0)
 		stream->in->inx -= size;
 	if (stream->in->inx == 0)
@@ -63,10 +86,9 @@ char	stream_getc(t_stream *stream, char *c)
 	if (stream->out->outx == BUFFER_SIZE)
 	{
 		tmp = stream->out;
+		stream->out = stream->out->next;
 		if (stream->in == tmp)
 			stream->in = NULL;
-		if (tmp->next)
-			stream->out = tmp->next;
 		free(tmp->buffer);
 		free(tmp);
 	}

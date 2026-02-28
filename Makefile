@@ -8,7 +8,7 @@ DEPS		=	$(OBJS:.o=.d)
 
 CC			=	cc
 
-FLAGS		=	-Wall -Wextra -Werror
+FLAGS		=	-Wall -Wextra -Werror -g3
 
 NAME		=	a.out
 
