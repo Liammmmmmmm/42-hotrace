@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 12:23:30 by lilefebv          #+#    #+#             */
-/*   Updated: 2026/03/01 16:20:59 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2026/03/01 16:48:00 by bfitte           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,16 @@ static inline int	search(uint32_t wordpos, t_vector *vec, t_hashmap *hashmap,
 	return (0);
 }
 
-static inline void	key_or_not(uint8_t is_key, t_vector *vec,
+static inline void	key_or_not(uint8_t *is_key, t_vector *vec,
 	t_hashmap *hashmap, uint32_t wordpos)
 {
-	if (is_key)
+	if (*is_key)
 	{
 		insert(hashmap, vec, wordpos);
-		is_key = 0;
+		*is_key = 0;
 	}
-	else if (!is_key)
-		is_key = 1;
+	else if (!*is_key)
+		*is_key = 1;
 }
 
 static inline void	parse_content(t_vector *vec, t_hashmap *hashmap,
@@ -90,7 +90,7 @@ static inline void	parse_content(t_vector *vec, t_hashmap *hashmap,
 				if (wordpos == UINT32_MAX)
 					search_mode = 1;
 				else
-					key_or_not(is_key, vec, hashmap, wordpos);
+					key_or_not(&is_key, vec, hashmap, wordpos);
 			}
 			wordpos = UINT32_MAX;
 		}
