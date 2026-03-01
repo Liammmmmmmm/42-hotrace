@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   read.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 12:23:30 by lilefebv          #+#    #+#             */
-/*   Updated: 2026/03/01 15:34:55 by bfitte           ###   ########lyon.fr   */
+/*   Updated: 2026/03/01 16:20:59 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
 #include "hashmap.h"
 #include "stdint.h"
+#include "inlined.h"
 #include <unistd.h>
 #include <stdio.h>
 
 #define READ_SIZE 100000
 
-void	come_back(t_vector *vec, size_t *parse_cursor)
+static inline void	come_back(t_vector *vec, size_t *parse_cursor)
 {
 	--(*parse_cursor);
 	while (*parse_cursor > 0 && vec->data[*parse_cursor])
@@ -28,7 +29,7 @@ void	come_back(t_vector *vec, size_t *parse_cursor)
 	return ;
 }
 
-int	search(uint32_t wordpos, t_vector *vec, t_hashmap *hashmap,
+static inline int	search(uint32_t wordpos, t_vector *vec, t_hashmap *hashmap,
 	uint8_t	search_mode)
 {
 	t_32b	index;
@@ -58,8 +59,8 @@ int	search(uint32_t wordpos, t_vector *vec, t_hashmap *hashmap,
 	return (0);
 }
 
-void	key_or_not(uint8_t is_key, t_vector *vec, t_hashmap *hashmap,
-	uint32_t	wordpos)
+static inline void	key_or_not(uint8_t is_key, t_vector *vec,
+	t_hashmap *hashmap, uint32_t wordpos)
 {
 	if (is_key)
 	{
@@ -70,7 +71,8 @@ void	key_or_not(uint8_t is_key, t_vector *vec, t_hashmap *hashmap,
 		is_key = 1;
 }
 
-void	parse_content(t_vector *vec, t_hashmap *hashmap, size_t *parse_cursor)
+static inline void	parse_content(t_vector *vec, t_hashmap *hashmap,
+	size_t *parse_cursor)
 {
 	static uint32_t	wordpos = UINT32_MAX;
 	static uint8_t	is_key = 1;
