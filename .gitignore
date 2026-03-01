@@ -3,7 +3,6 @@ a.out
 hotrace
 in
 txt
-*.htr
 *.in
 callgrind.*
 .cache/

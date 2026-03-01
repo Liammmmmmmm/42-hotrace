@@ -6,7 +6,7 @@
 /*   By: ethebaul <ethebaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 21:09:05 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/03/01 18:01:17 by ethebaul         ###   ########.fr       */
+/*   Updated: 2026/03/01 18:14:39 by ethebaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "vector.h"
 # include "utils.h"
 
-# define CONCENTRE_TOI concentre_toi
 # define HASHMAP_SIZE 10000000
 
 typedef struct __attribute__((aligned(16))) s_row

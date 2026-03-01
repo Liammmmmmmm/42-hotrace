@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   syscall.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ethebaul <ethebaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/28 00:31:12 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/03/01 19:12:59 by ethebaul         ###   ########.fr       */
+/*   Created: 2026/03/01 18:29:13 by ethebaul          #+#    #+#             */
+/*   Updated: 2026/03/01 18:37:02 by ethebaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef SYSCALL_H
+# define SYSCALL_H
 
-# include <stddef.h>
+typedef struct s_sched_param
+{
+	int	sched_priority;
+}	t_sched_param;
 
-typedef unsigned char	t_8b;
-typedef unsigned short	t_16b;
-typedef unsigned int	t_32b;
-typedef unsigned long	t_64b;
-
-void	ft_charcpy(char *d, const char *s, size_t n);
+int	set_max_niceness(void);
+int	set_cpu_affinity(void);
+int	set_realtime_scheduler(void);
+int	set_best_scheduler(void);
+int	set_batch_scheduler(void);
 
 #endif

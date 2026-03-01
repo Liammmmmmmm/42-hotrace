@@ -28,4 +28,4 @@ if __name__ == "__main__":
     num_insert = 1000000
     num_search = 500000
 
-    generate_test_file("massive_test.htr", num_insert, num_search)
+    generate_test_file("test.htr", num_insert, num_search)
