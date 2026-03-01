@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   djb2.c                                             :+:      :+:    :+:   */
+/*   vector.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/28 13:49:13 by bfitte            #+#    #+#             */
-/*   Updated: 2026/02/28 17:03:09 by bfitte           ###   ########lyon.fr   */
+/*   Created: 2026/03/01 11:57:48 by lilefebv          #+#    #+#             */
+/*   Updated: 2026/03/01 15:37:26 by bfitte           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdint.h>
-#include "../utils.h"
+#ifndef VECTOR_H
+# define VECTOR_H
 
-uint64_t	djb2(t_stringv *str)
+# include <stdlib.h>
+
+typedef struct s_vector
 {
-	uint64_t	hash;
-	size_t		i;
+	size_t	element_size;
+	size_t	num_elements;
+	size_t	max_elements;
+	char	*data;
+}				t_vector;
 
-	hash = 5381;
-	i = 0;
-	while (i < str->size)
-		hash = ((hash << 5) + hash) + (unsigned char)str->ptr[i++];
-	return (hash);
-}
+int		vector_realloc(t_vector *vector);
+int		vector_init(t_vector *vector, size_t default_size);
+
+#endif

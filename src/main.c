@@ -6,25 +6,35 @@
 /*   By: ethebaul <ethebaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 00:31:17 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/02/28 22:52:28 by ethebaul         ###   ########.fr       */
+/*   Updated: 2026/03/01 14:50:29 by ethebaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stream.h"
 #include "hashmap.h"
+#include "vector.h"
+#include <stdio.h>
+
+int	read_pro_max(t_vector *vec, t_hashmap *hashmap);
 
 int	main(void)
 {
-	t_8stream	input;
-	t_64stream	hashmap;
+	t_vector	vec;
+	t_hashmap	hashmap;
 
-	init8stream(&input);
-	init64stream(&hashmap);
-	if (read8stream(&input, 0))
+	if (vector_init(&vec, 30000000))
 		return (1);
-	if (init_hashmap(&hashmap, &input))
+	if (init_hashmap(&hashmap))
+	{
+		free(vec.data);
 		return (1);
-	dest8stream(&input);
-	dest64stream(&hashmap);
+	}
+	if (read_pro_max(&vec, &hashmap))
+	{
+		free(vec.data);
+		destroy_hashmap(&hashmap);
+		return (1);
+	}
+	free(vec.data);
+	destroy_hashmap(&hashmap);
 	return (0);
 }

@@ -3,75 +3,99 @@
 /*                                                        :::      ::::::::   */
 /*   hashmap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ethebaul <ethebaul@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 20:54:07 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/03/01 14:43:46 by ethebaul         ###   ########.fr       */
+/*   Updated: 2026/03/01 16:37:52 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <limits.h>
 #include <stddef.h>
 #include <stdio.h>
-#include "stream.h"
+#include "utils.h"
+#include "hashmap.h"
+#include "vector.h"
+#include "inlined.h"
 
-void	*inserthash(t_64stream *hashstream, size_t *bucket)
+#include <unistd.h>
+#include <stdlib.h>
+
+int	init_hashmap(t_hashmap *hashmap)
 {
-	size_t tmp;
+	t_32b	i;
 
-	if (*bucket)
-		tmp = *bucket;
-	
-	return (bucket);
-}
-
-void	djb2(t_64stream *hashstream, t_8stream *input, size_t index)
-{
-	size_t	*bucket;
-	size_t	hash;
-	size_t	i;
-	char	*c;
-
-	hash = 5381;
-	c = access8stream(input, index);
-	i = index;
-	while (*c)
-	{
-		hash = ((hash << 5) + hash) + (unsigned char)*c;
-		i++;
-		c = access8stream(input, i);
-	}
-	bucket = accesscreat64stream(hashstream, hash & BUF64SIZE);
-	if (!bucket)
-		return ;
-	inserthash(hashstream, bucket) = index;
-}
-
-int	init_hashmap(t_64stream *hashstream, t_8stream *inputstream)
-{
-	size_t	word;
-	size_t	len;
-	size_t	i;
-	char	*c;
-
+	hashmap->rows = malloc(HASHMAP_SIZE * sizeof(t_row));
+	if (!hashmap->rows)
+		return (-1);
 	i = 0;
-	word = ULONG_MAX;
-	len = len8stream(inputstream);
-	while (i < len)
+	while (i < HASHMAP_SIZE)
 	{
-		c = access8stream(inputstream, i);
-		if (c == NULL)
-			return (-1);
-		if (*c == '\n')
-		{
-			*c = '\0';
-			if (word != ULONG_MAX)
-				djb2(hashstream, inputstream, word);
-			word = ULONG_MAX;
-		}
-		else if (word == ULONG_MAX)
-			word = i;
-		++i;
+		*((unsigned __int128*)(&hashmap->rows[i])) = ~((unsigned __int128)0);
+		*((unsigned __int128*)(&hashmap->rows[i]) + 1) =
+		~((unsigned __int128)0);
+		*((unsigned __int128*)(&hashmap->rows[i]) + 2) =
+		~((unsigned __int128)0);
+		*((unsigned __int128*)(&hashmap->rows[i]) + 3) =
+		~((unsigned __int128)0);
+		i++;
 	}
 	return (0);
+}
+
+void	destroy_hashmap(t_hashmap *hashmap)
+{
+	free(hashmap->rows);
+}
+
+static inline t_32b	hash_u32(t_32b x)
+{
+	x ^= x >> 16;
+	x *= 0x7feb352d;
+	x ^= x >> 15;
+	x *= 0x846ca68b;
+	x ^= x >> 16;
+	return (x);
+}
+
+t_32b	lookup(t_hashmap *hashmap, t_vector *vec, t_32b value)
+{
+	t_32b	index;
+	int		i;
+
+	index = djb2(vec, value) % HASHMAP_SIZE;
+	while (1)
+	{
+		i = 0;
+		while (hashmap->rows[index].index[i] != UINT_MAX && i < 16)
+		{
+			if (ft_strcmp(vec->data + hashmap->rows[index].index[i],
+					vec->data + value) == 0)
+				return (hashmap->rows[index].index[i]);
+			i++;
+		}
+		if (i < 16)
+			return (UINT_MAX);
+		index = hash_u32(index);
+	}
+}
+
+void	insert(t_hashmap *hashmap, t_vector *vec, t_32b value)
+{
+	t_32b	index;
+	int		i;
+
+	index = djb2(vec, value) % HASHMAP_SIZE;
+	while (1)
+	{
+		i = 0;
+		while (i < 16 && hashmap->rows[index].index[i] != UINT_MAX)
+			i++;
+		if (i < 16)
+		{
+			hashmap->rows[index].index[i] = value;
+			return ;
+		}
+		index = hash_u32(index);
+	}
 }
