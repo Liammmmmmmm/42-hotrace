@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 12:23:30 by lilefebv          #+#    #+#             */
-/*   Updated: 2026/03/01 13:49:15 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2026/03/01 13:58:02 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "hashmap.h"
 #include "stdint.h"
 #include <unistd.h>
+#include <stdio.h>
 
 #define READ_SIZE 100000
 
@@ -31,7 +32,7 @@ void	ft_putstr(char *str)
 {
 	write(1, str, ft_strlen(str));
 }
-#include <stdio.h>
+
 void parse_content(t_vector *vec, t_hashmap *hashmap, size_t *parse_cursor)
 {
 	static uint32_t	wordpos = UINT32_MAX;
@@ -56,7 +57,6 @@ void parse_content(t_vector *vec, t_hashmap *hashmap, size_t *parse_cursor)
 			{
 				if (wordpos != UINT32_MAX)
 				{
-					// printf("SEARCH key: \"%s\"\n", vec->data + wordpos);
 					t_32b index = lookup(hashmap, vec, wordpos);
 					if (index == UINT32_MAX)
 					{
@@ -80,13 +80,11 @@ void parse_content(t_vector *vec, t_hashmap *hashmap, size_t *parse_cursor)
 					search_mode = 1;
 				else if (is_key)
 				{
-					// printf("INSERT key: \"%s\"\n", vec->data + wordpos);
 					insert(hashmap, vec, wordpos);
 					is_key = 0;
 				}
 				else if (!is_key)
 				{
-					// printf("INSERT value: \"%s\"\n", vec->data + wordpos);
 					is_key = 1;
 				}
 			}

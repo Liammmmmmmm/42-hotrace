@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 00:31:12 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/03/01 12:41:01 by bfitte           ###   ########lyon.fr   */
+/*   Updated: 2026/03/01 13:57:45 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	smalloc(size_t size, void **ret);
 int	sread(int fd, char *buf, size_t len, long *ret);
 
 void	ft_charcpy(char *d, const char *s, size_t n);
-// void	*ft_calloc(size_t size, size_t nb);
 
 
 #endif

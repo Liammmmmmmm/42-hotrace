@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 21:09:05 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/03/01 13:37:17 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2026/03/01 13:57:26 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,9 @@ typedef struct s_hashmap
 	t_row *rows;
 }	t_hashmap;
 
-// int	init_hashmap(t_64stream *hashstream, t_8stream *inputstream);
-
-
 int init_hashmap(t_hashmap *hashmap);
 void destroy_hashmap(t_hashmap *hashmap);
 
-void find_values(t_hashmap *hashmap, t_8stream *inputstream, size_t start);
-size_t fill_values(t_hashmap *hashmap, t_8stream *inputstream);
-
-// void	insert(t_hashmap *hashmap, t_8stream *input, t_32b value);
-// t_32b	lookup(t_hashmap *hashmap, t_8stream *input, t_32b value);
 t_32b lookup(t_hashmap *hashmap, t_vector *vec, t_32b value);
 void insert(t_hashmap *hashmap, t_vector *vec, t_32b value);
 
