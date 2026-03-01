@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stream8io.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ethebaul <ethebaul@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 19:14:55 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/02/28 23:01:09 by ethebaul         ###   ########.fr       */
+/*   Updated: 2026/03/01 10:42:16 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	read8stream(t_8stream *stream, int fd)
 	result = 1;
 	while (result)
 	{
+		printf("MAIS\n");
 		if (!stream->in)
 			if (ext8stream(stream))
 				return (-1);
