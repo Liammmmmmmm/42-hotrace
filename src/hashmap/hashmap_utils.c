@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   hashmap_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/28 00:31:12 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/03/01 15:37:07 by bfitte           ###   ########lyon.fr   */
+/*   Created: 2026/03/01 14:53:49 by bfitte            #+#    #+#             */
+/*   Updated: 2026/03/01 15:41:24 by bfitte           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "hashmap.h"
 
-# include <stddef.h>
+int	ft_strcmp(char *s1, char *s2)
+{
+	size_t	i;
 
-typedef unsigned char	t_8b;
-typedef unsigned short	t_16b;
-typedef unsigned int	t_32b;
-typedef unsigned long	t_64b;
+	i = 0;
+	while (s1[i] && s1[i] == s2[i])
+		i++;
+	return (s1[i] - s2[i]);
+}
 
-int		zalloc(size_t size, void **ret);
-int		smalloc(size_t size, void **ret);
-int		sread(int fd, char *buf, size_t len, long *ret);
+size_t	djb2(t_vector *vec, size_t index)
+{
+	size_t	hash;
+	size_t	i;
 
-void	ft_charcpy(char *d, const char *s, size_t n);
-
-#endif
+	hash = 5381;
+	i = index;
+	while (vec->data[i])
+	{
+		hash = ((hash << 5) + hash) + (unsigned char)vec->data[i];
+		i++;
+	}
+	return (hash);
+}

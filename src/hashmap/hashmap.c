@@ -6,7 +6,7 @@
 /*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 20:54:07 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/03/01 12:43:2020 by bfitte           ###   ########lyon.fr   */
+/*   Updated: 2026/03/01 15:36:09 by bfitte           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-int init_hashmap(t_hashmap *hashmap)
+int	init_hashmap(t_hashmap *hashmap)
 {
 	t_32b	i;
 
@@ -31,84 +31,71 @@ int init_hashmap(t_hashmap *hashmap)
 	i = 0;
 	while (i < HASHMAP_SIZE)
 	{
-		*((unsigned __int128*)&hashmap->rows[i]) = ~((unsigned __int128)0);
-		*((unsigned __int128*)&hashmap->rows[i] + 1) = ~((unsigned __int128)0);
-		*((unsigned __int128*)&hashmap->rows[i] + 2) = ~((unsigned __int128)0);
-		*((unsigned __int128*)&hashmap->rows[i] + 3) = ~((unsigned __int128)0);
+		*((unsigned __int128*)(&hashmap->rows[i])) = ~((unsigned __int128)0);
+		*((unsigned __int128*)(&hashmap->rows[i]) + 1) =
+		~((unsigned __int128)0);
+		*((unsigned __int128*)(&hashmap->rows[i]) + 2) =
+		~((unsigned __int128)0);
+		*((unsigned __int128*)(&hashmap->rows[i]) + 3) =
+		~((unsigned __int128)0);
 		i++;
 	}
 	return (0);
 }
 
-void destroy_hashmap(t_hashmap *hashmap)
+void	destroy_hashmap(t_hashmap *hashmap)
 {
 	free(hashmap->rows);
 }
 
-static inline t_32b hash_u32(t_32b x)
+static inline t_32b	hash_u32(t_32b x)
 {
-    x ^= x >> 16;
-    x *= 0x7feb352d;
-    x ^= x >> 15;
-    x *= 0x846ca68b;
-    x ^= x >> 16;
-    return x;
+	x ^= x >> 16;
+	x *= 0x7feb352d;
+	x ^= x >> 15;
+	x *= 0x846ca68b;
+	x ^= x >> 16;
+	return (x);
 }
 
-size_t	djb2(t_vector *vec, size_t index)
+t_32b	lookup(t_hashmap *hashmap, t_vector *vec, t_32b value)
 {
-	size_t	hash;
-	size_t	i;
+	t_32b	index;
+	int		i;
 
-	hash = 5381;
-	i = index;
-	while (vec->data[i])
-	{
-		hash = ((hash << 5) + hash) + (unsigned char)vec->data[i];
-		i++;
-	}
-	return hash;
-}
-
-void insert(t_hashmap *hashmap, t_vector *vec, t_32b value)
-{
-	t_32b index = djb2(vec, value) % HASHMAP_SIZE;
-
+	index = djb2(vec, value) % HASHMAP_SIZE;
 	while (1)
-	{	
-		int i = 0;
+	{
+		i = 0;
+		while (hashmap->rows[index].index[i] != UINT_MAX && i < 16)
+		{
+			if (ft_strcmp(vec->data + hashmap->rows[index].index[i],
+					vec->data + value) == 0)
+				return (hashmap->rows[index].index[i]);
+			i++;
+		}
+		if (i < 16)
+			return (UINT_MAX);
+		index = hash_u32(index);
+	}
+}
 
-		
+void	insert(t_hashmap *hashmap, t_vector *vec, t_32b value)
+{
+	t_32b	index;
+	int		i;
+
+	index = djb2(vec, value) % HASHMAP_SIZE;
+	while (1)
+	{
+		i = 0;
 		while (hashmap->rows[index].index[i] != UINT_MAX && i < 16)
 			i++;
-
 		if (i < 16)
 		{
 			hashmap->rows[index].index[i] = value;
 			return ;
 		}
-
-		index = hash_u32(index);
-	}
-}
-
-t_32b lookup(t_hashmap *hashmap, t_vector *vec, t_32b value)
-{
-	t_32b index = djb2(vec, value) % HASHMAP_SIZE;
-
-	while (1)
-	{
-		int i = 0;
-		while (hashmap->rows[index].index[i] != UINT_MAX && i < 16)
-		{
-			if (ft_strcmp(vec->data + hashmap->rows[index].index[i], vec->data + value) == 0)
-				return hashmap->rows[index].index[i];
-			i++;
-		}
-
-		if (i < 16)
-			return UINT_MAX;
-
 		index = hash_u32(index);
 	}
 }

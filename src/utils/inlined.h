@@ -6,16 +6,16 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 14:01:58 by lilefebv          #+#    #+#             */
-/*   Updated: 2026/03/01 14:52:21 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2026/03/01 15:38:38 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef INLINED_H
 # define INLINED_H
 
-#include <stddef.h>
-#include <unistd.h>
-#include <stdint.h>
+# include <stddef.h>
+# include <unistd.h>
+# include <stdint.h>
 
 static inline size_t	ft_strlen(const char *s)
 {
@@ -36,7 +36,7 @@ static inline void	ft_putstr(char *str)
 	write(1, str, ft_strlen(str));
 }
 
-static inline int ft_strcmp(const char *s1, const char *s2)
+static inline int	ft_strcmp(const char *s1, const char *s2)
 {
 	const unsigned char	*p1 = (const unsigned char *)s1;
 	const unsigned char	*p2 = (const unsigned char *)s2;
@@ -55,11 +55,12 @@ static inline int ft_strcmp(const char *s1, const char *s2)
 				p1++;
 				p2++;
 			}
-			return (int)*p1 - (int)*p2;
+			return ((int)*p1 - (int)*p2);
 		}
 		p1 += 8;
 		p2 += 8;
 	}
+	return (0);
 }
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 12:22:46 by lilefebv          #+#    #+#             */
-/*   Updated: 2026/03/01 12:39:30 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2026/03/01 15:37:45 by bfitte           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,3 @@ int	vector_init(t_vector *vector, size_t default_size)
 		return (-1);
 	return (0);
 }
-

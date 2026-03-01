@@ -4,3 +4,5 @@ hotrace
 in
 txt
 *.htr
+*.in
+callgrind.*

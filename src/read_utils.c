@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   read_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/28 00:31:12 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/03/01 15:37:07 by bfitte           ###   ########lyon.fr   */
+/*   Created: 2026/03/01 15:14:43 by bfitte            #+#    #+#             */
+/*   Updated: 2026/03/01 15:35:12 by bfitte           ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include <unistd.h>
 
-# include <stddef.h>
+size_t	ft_strlen(char *str)
+{
+	size_t	i;
 
-typedef unsigned char	t_8b;
-typedef unsigned short	t_16b;
-typedef unsigned int	t_32b;
-typedef unsigned long	t_64b;
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
 
-int		zalloc(size_t size, void **ret);
-int		smalloc(size_t size, void **ret);
-int		sread(int fd, char *buf, size_t len, long *ret);
-
-void	ft_charcpy(char *d, const char *s, size_t n);
-
-#endif
+void	ft_putstr(char *str)
+{
+	write(1, str, ft_strlen(str));
+}
