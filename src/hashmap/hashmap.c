@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   hashmap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ethebaul <ethebaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 20:54:07 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/03/01 16:18:24 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2026/03/01 17:56:41 by ethebaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <limits.h>
 #include <stddef.h>
-#include <stdio.h>
 #include "utils.h"
 #include "hashmap.h"
 #include "vector.h"

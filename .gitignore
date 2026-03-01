@@ -8,3 +8,4 @@ txt
 callgrind.*
 .cache/
 compile_commands.json
+dump
