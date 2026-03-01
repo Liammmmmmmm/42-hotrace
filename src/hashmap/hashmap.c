@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 20:54:07 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/03/01 10:56:06 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2026/03/01 11:19:36 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,20 @@ void print_stream_word(t_8stream *inputstream, size_t index)
 	}
 }
 
+void print_stream_value(t_8stream *inputstream, size_t index)
+{
+	char	*c;
+
+	c = access8stream(inputstream, index);
+	while (c && *c)
+	{
+		index++;
+		c = access8stream(inputstream, index);
+	}
+	index++;
+	print_stream_word(inputstream, index);
+}
+
 size_t	djb2(t_8stream *input, size_t index)
 {
 	// size_t	*bucket;
@@ -115,6 +129,7 @@ size_t fill_values(t_hashmap *hashmap, t_8stream *inputstream)
 	size_t	i;
 	char	*c;
 
+	int is_key = 1;
 	i = 0;
 	word = ULONG_MAX;
 	len = len8stream(inputstream);
@@ -127,10 +142,18 @@ size_t fill_values(t_hashmap *hashmap, t_8stream *inputstream)
 		if (*c == '\n')
 		{
 			*c = '\0';
-			if (word != ULONG_MAX)
-				insert(hashmap, inputstream, word);
+			if (is_key)
+			{
+				if (word != ULONG_MAX)
+					insert(hashmap, inputstream, word);
+				else
+					return i + 1;
+				is_key = 0;
+			}
 			else
-				return i;
+			{
+				is_key = 1;
+			}
 			word = ULONG_MAX;
 		}
 		else if (word == ULONG_MAX)
@@ -144,10 +167,10 @@ void find_values(t_hashmap *hashmap, t_8stream *inputstream, size_t start)
 {
 	size_t	word;
 	size_t	len;
-	size_t	i = start;
+	size_t	i;
 	char	*c;
 
-	i = 0;
+	i = start;
 	word = ULONG_MAX;
 	len = len8stream(inputstream);
 	while (i < len)
@@ -162,10 +185,10 @@ void find_values(t_hashmap *hashmap, t_8stream *inputstream, size_t start)
 			{
 				t_32b index = lookup(hashmap, inputstream, word);
 				if (index == UINT_MAX)
-					printf("Mot pas trouvé\n");
+					write(1, "keyword-searched: Not found.\n", 29);
 				else
 				{
-					print_stream_word(inputstream, index);
+					print_stream_value(inputstream, index);
 					write(1, "\n", 1);
 				}
 			}
@@ -216,10 +239,10 @@ void insert(t_hashmap *hashmap, t_8stream *input, t_32b value)
 {
 	t_32b index = djb2(input, value) % HASHMAP_SIZE;
 
-	printf("Insert:\n");
-	print_stream_word(input, value);
-	write(1, "\n", 1);
-	printf("Fin insert\n");
+	// printf("Insert:\n");
+	// print_stream_word(input, value);
+	// write(1, "\n", 1);
+	// printf("Fin insert\n");
 	
 	while (1) // Un probleme : le cas ou on a plus de place du tout donc a voir pour une limite quand meme
 	{	
@@ -267,7 +290,7 @@ t_32b lookup(t_hashmap *hashmap, t_8stream *input, t_32b value)
 {
 	t_32b index = djb2(input, value) % HASHMAP_SIZE;
 
-	// printf("Lookup:\n");
+	// printf("Lookup key %u:\n", value);
 	// print_stream_word(input, value);
 	// write(1, "\n", 1);
 	// printf("Fin lookup\n");
