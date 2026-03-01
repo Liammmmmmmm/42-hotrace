@@ -6,3 +6,4 @@ txt
 *.htr
 *.in
 callgrind.*
+.cache/
