@@ -6,7 +6,7 @@
 /*   By: ethebaul <ethebaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 20:54:07 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/02/28 23:42:25 by ethebaul         ###   ########.fr       */
+/*   Updated: 2026/03/01 14:43:46 by ethebaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 #include <stddef.h>
 #include <stdio.h>
 #include "stream.h"
+
+void	*inserthash(t_64stream *hashstream, size_t *bucket)
+{
+	size_t tmp;
+
+	if (*bucket)
+		tmp = *bucket;
+	
+	return (bucket);
+}
 
 void	djb2(t_64stream *hashstream, t_8stream *input, size_t index)
 {
@@ -34,8 +44,7 @@ void	djb2(t_64stream *hashstream, t_8stream *input, size_t index)
 	bucket = accesscreat64stream(hashstream, hash & BUF64SIZE);
 	if (!bucket)
 		return ;
-	else
-		*bucket = index;
+	inserthash(hashstream, bucket) = index;
 }
 
 int	init_hashmap(t_64stream *hashstream, t_8stream *inputstream)
