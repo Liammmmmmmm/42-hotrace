@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hashmap_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 14:53:49 by bfitte            #+#    #+#             */
-/*   Updated: 2026/03/01 15:41:24 by bfitte           ###   ########lyon.fr   */
+/*   Updated: 2026/03/01 18:56:28 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hashmap.h"
-
-int	ft_strcmp(char *s1, char *s2)
-{
-	size_t	i;
-
-	i = 0;
-	while (s1[i] && s1[i] == s2[i])
-		i++;
-	return (s1[i] - s2[i]);
-}
 
 size_t	djb2(t_vector *vec, size_t index)
 {

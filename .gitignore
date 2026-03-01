@@ -8,3 +8,5 @@ txt
 callgrind.*
 .cache/
 compile_commands.json
+checker.py
+.obj
