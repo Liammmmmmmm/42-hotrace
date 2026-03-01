@@ -92,16 +92,6 @@ void insert(t_hashmap *hashmap, t_vector *vec, t_32b value)
 	}
 }
 
-int	ft_strcmp(char *s1, char *s2)
-{
-	size_t	i;
-
-	i = 0;
-	while (s1[i] && s1[i] == s2[i])
-		i++;
-	return (s1[i] - s2[i]);
-}
-
 t_32b lookup(t_hashmap *hashmap, t_vector *vec, t_32b value)
 {
 	t_32b index = djb2(vec, value) % HASHMAP_SIZE;

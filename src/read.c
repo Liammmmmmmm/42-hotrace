@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/01 12:23:30 by lilefebv          #+#    #+#             */
-/*   Updated: 2026/03/01 13:58:02 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2026/03/01 14:01:31 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,6 @@
 #include <stdio.h>
 
 #define READ_SIZE 100000
-
-size_t	ft_strlen(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-
-void	ft_putstr(char *str)
-{
-	write(1, str, ft_strlen(str));
-}
 
 void parse_content(t_vector *vec, t_hashmap *hashmap, size_t *parse_cursor)
 {

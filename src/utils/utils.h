@@ -6,13 +6,14 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 00:31:12 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/03/01 13:57:45 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2026/03/01 14:02:15 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
 
+# include "inlined.h" 
 # include <stddef.h>
 
 typedef unsigned char	t_8b;
@@ -25,6 +26,5 @@ int	smalloc(size_t size, void **ret);
 int	sread(int fd, char *buf, size_t len, long *ret);
 
 void	ft_charcpy(char *d, const char *s, size_t n);
-
 
 #endif

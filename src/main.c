@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 00:31:17 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/03/01 13:41:50 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2026/03/01 14:56:35 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,16 @@ int	main(void)
 	if (vector_init(&vec, 30000000))
 		return (1);
 	if (init_hashmap(&hashmap))
+	{
+		free(vec.data);
 		return (1);
-	
+	}
 	if (read_pro_max(&vec, &hashmap))
+	{
+		free(vec.data);
+		destroy_hashmap(&hashmap);
 		return (1);
-
+	}
 	free(vec.data);
 	destroy_hashmap(&hashmap);
 	return (0);
