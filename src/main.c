@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: ethebaul <ethebaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 00:31:17 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/03/01 15:37:40 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2026/03/01 14:50:29 by ethebaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stream.h"
 #include "hashmap.h"
 #include "vector.h"
 #include <stdio.h>

@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   hashmap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: ethebaul <ethebaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 20:54:07 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/03/01 15:36:09 by bfitte           ###   ########lyon.fr   */
+/*   Updated: 2026/03/01 14:50:22 by ethebaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <limits.h>
 #include <stddef.h>
 #include <stdio.h>
-#include "stream.h"
 #include "utils.h"
 #include "hashmap.h"
 #include "vector.h"
@@ -89,7 +88,7 @@ void	insert(t_hashmap *hashmap, t_vector *vec, t_32b value)
 	while (1)
 	{
 		i = 0;
-		while (hashmap->rows[index].index[i] != UINT_MAX && i < 16)
+		while (i < 16 && hashmap->rows[index].index[i] != UINT_MAX)
 			i++;
 		if (i < 16)
 		{

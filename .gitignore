@@ -7,3 +7,4 @@ txt
 *.in
 callgrind.*
 .cache/
+compile_commands.json

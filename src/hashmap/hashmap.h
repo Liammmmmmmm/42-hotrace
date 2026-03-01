@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   hashmap.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bfitte <bfitte@student.42lyon.fr>          +#+  +:+       +#+        */
+/*   By: ethebaul <ethebaul@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 21:09:05 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/03/01 15:35:54 by bfitte           ###   ########lyon.fr   */
+/*   Updated: 2026/03/01 14:46:19 by ethebaul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HASHMAP_H
 # define HASHMAP_H
 
-# include "stream.h"
 # include "vector.h"
 # include "utils.h"
 
