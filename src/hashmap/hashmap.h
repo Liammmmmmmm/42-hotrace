@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hashmap.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ethebaul <ethebaul@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 21:09:05 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/03/01 14:46:19 by ethebaul         ###   ########.fr       */
+/*   Updated: 2026/03/01 16:18:07 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,8 @@ int		init_hashmap(t_hashmap *hashmap);
 void	destroy_hashmap(t_hashmap *hashmap);
 
 size_t	djb2(t_vector *vec, size_t index);
-int		ft_strcmp(char *s1, char *s2);
 
 t_32b	lookup(t_hashmap *hashmap, t_vector *vec, t_32b value);
 void	insert(t_hashmap *hashmap, t_vector *vec, t_32b value);
-
-size_t	ft_strlen(char *str);
-void	ft_putstr(char *str);
 
 #endif
