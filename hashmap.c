@@ -6,7 +6,7 @@
 /*   By: lilefebv <lilefebv@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/28 20:54:07 by ethebaul          #+#    #+#             */
-/*   Updated: 2026/03/01 16:37:52 by lilefebv         ###   ########lyon.fr   */
+/*   Updated: 2026/03/02 18:16:25 by lilefebv         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_32b	lookup(t_hashmap *hashmap, t_vector *vec, t_32b value)
 	while (1)
 	{
 		i = 0;
-		while (hashmap->rows[index].index[i] != UINT_MAX && i < 16)
+		while (i < 16 && hashmap->rows[index].index[i] != UINT_MAX)
 		{
 			if (ft_strcmp(vec->data + hashmap->rows[index].index[i],
 					vec->data + value) == 0)
@@ -76,7 +76,7 @@ t_32b	lookup(t_hashmap *hashmap, t_vector *vec, t_32b value)
 		}
 		if (i < 16)
 			return (UINT_MAX);
-		index = hash_u32(index);
+		index = hash_u32(index) % HASHMAP_SIZE;
 	}
 }
 
@@ -96,6 +96,6 @@ void	insert(t_hashmap *hashmap, t_vector *vec, t_32b value)
 			hashmap->rows[index].index[i] = value;
 			return ;
 		}
-		index = hash_u32(index);
+		index = hash_u32(index) % HASHMAP_SIZE;
 	}
 }
